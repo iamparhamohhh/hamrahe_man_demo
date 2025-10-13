@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Example UI',
+      title: 'Arka UI Demo',
       debugShowCheckedModeBanner: false,
       theme: _getLightTheme(),
       darkTheme: _getDarkTheme(),
