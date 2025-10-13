@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 
 class KhadamatScreen extends StatelessWidget {
   final bool isDarkMode;
@@ -17,7 +18,10 @@ class KhadamatScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: _backgroundColor,
       appBar: AppBar(
-        title: Text('خدمات', style: TextStyle(color: _textColor)),
+        title: Text(
+          'خدمات',
+          style: PersianFonts.Samim.copyWith(color: _textColor),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -28,7 +32,7 @@ class KhadamatScreen extends StatelessWidget {
           children: [
             Text(
               'خدمات پرکاربرد',
-              style: TextStyle(
+              style: PersianFonts.Samim.copyWith(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: _textColor,
@@ -39,7 +43,7 @@ class KhadamatScreen extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               'خدمات ویژه',
-              style: TextStyle(
+              style: PersianFonts.Samim.copyWith(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: _textColor,
@@ -58,7 +62,7 @@ class KhadamatScreen extends StatelessWidget {
       _ServiceItem(
         title: 'شارژ مستقیم',
         icon: Icons.bolt,
-        color: Colors.orange,
+        color: const Color(0xFF33B4E6),
         description: 'شارژ آنی سیم‌کارت',
       ),
       _ServiceItem(
@@ -82,7 +86,7 @@ class KhadamatScreen extends StatelessWidget {
       _ServiceItem(
         title: 'خدمات رومینگ',
         icon: Icons.language,
-        color: Colors.red,
+        color: const Color(0xFF33B4E6),
         description: 'خدمات بین‌الملل',
       ),
       _ServiceItem(
@@ -214,10 +218,14 @@ class KhadamatScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
+                    color: const Color(0xFF33B4E6).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(service.icon, color: Colors.orange, size: 24),
+                  child: Icon(
+                    service.icon,
+                    color: const Color(0xFF33B4E6),
+                    size: 24,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(

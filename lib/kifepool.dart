@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 
 class KifePoolScreen extends StatelessWidget {
   final bool isDarkMode;
@@ -17,7 +18,10 @@ class KifePoolScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: _backgroundColor,
       appBar: AppBar(
-        title: Text('کیف‌پول', style: TextStyle(color: _textColor)),
+        title: Text(
+          'کیف‌پول',
+          style: PersianFonts.Samim.copyWith(color: _textColor),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -30,7 +34,7 @@ class KifePoolScreen extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               'تراکنش‌های اخیر',
-              style: TextStyle(
+              style: PersianFonts.Samim.copyWith(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: _textColor,
@@ -51,14 +55,14 @@ class KifePoolScreen extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.blue, Colors.blueAccent],
+          colors: [Color(0xFF33B4E6), Color(0x8033B4E6)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.3),
+            color: const Color(0xFF33B4E6).withOpacity(0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -69,15 +73,15 @@ class KifePoolScreen extends StatelessWidget {
         children: [
           Text(
             'موجودی کیف‌پول',
-            style: TextStyle(
+            style: PersianFonts.Samim.copyWith(
               fontSize: 16,
               color: Colors.white.withOpacity(0.9),
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             '۱۵۷٬۵۰۰ ریال',
-            style: TextStyle(
+            style: PersianFonts.Samim.copyWith(
               fontSize: 32,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -90,7 +94,7 @@ class KifePoolScreen extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: Colors.blue,
+                    foregroundColor: const Color(0xFF33B4E6),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
                   onPressed: () {},
@@ -253,7 +257,7 @@ class KifePoolScreen extends StatelessWidget {
               child: _buildQuickActionButton(
                 icon: Icons.send,
                 title: 'انتقال',
-                color: Colors.blue,
+                color: const Color(0xFF33B4E6),
               ),
             ),
             const SizedBox(width: 12),
@@ -261,7 +265,7 @@ class KifePoolScreen extends StatelessWidget {
               child: _buildQuickActionButton(
                 icon: Icons.history,
                 title: 'تاریخچه',
-                color: Colors.orange,
+                color: const Color(0xFF33B4E6),
               ),
             ),
           ],
@@ -323,7 +327,7 @@ class KifePoolScreen extends StatelessWidget {
       case TransactionType.refund:
         return Colors.blue;
       case TransactionType.payment:
-        return Colors.orange;
+        return const Color(0xFF33B4E6);
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 
 class SuratHesabScreen extends StatelessWidget {
   final bool isDarkMode;
@@ -17,7 +18,10 @@ class SuratHesabScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: _backgroundColor,
       appBar: AppBar(
-        title: Text('صورت‌حساب', style: TextStyle(color: _textColor)),
+        title: Text(
+          'صورت‌حساب',
+          style: PersianFonts.Samim.copyWith(color: _textColor),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -28,7 +32,7 @@ class SuratHesabScreen extends StatelessWidget {
           children: [
             Text(
               'صورت‌حساب‌های من',
-              style: TextStyle(
+              style: PersianFonts.Samim.copyWith(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: _textColor,
@@ -106,7 +110,7 @@ class SuratHesabScreen extends StatelessWidget {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: isPaid ? Colors.green : Colors.orange,
+                  color: isPaid ? Colors.green : const Color(0xFF33B4E6),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -139,7 +143,9 @@ class SuratHesabScreen extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isPaid ? Colors.grey : Colors.orange,
+                    backgroundColor: isPaid
+                        ? Colors.grey
+                        : const Color(0xFF33B4E6),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
                   onPressed: () {},

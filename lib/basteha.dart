@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 
 class BastehaScreen extends StatelessWidget {
   final bool isDarkMode;
@@ -17,7 +18,10 @@ class BastehaScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: _backgroundColor,
       appBar: AppBar(
-        title: Text('بسته‌ها', style: TextStyle(color: _textColor)),
+        title: Text(
+          'بسته‌ها',
+          style: PersianFonts.Samim.copyWith(color: _textColor),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -28,7 +32,7 @@ class BastehaScreen extends StatelessWidget {
           children: [
             Text(
               'بسته‌های اینترنت',
-              style: TextStyle(
+              style: PersianFonts.Samim.copyWith(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: _textColor,
@@ -64,7 +68,7 @@ class BastehaScreen extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               'بسته‌های مکالمه',
-              style: TextStyle(
+              style: PersianFonts.Samim.copyWith(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: _textColor,
@@ -116,7 +120,7 @@ class BastehaScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: PersianFonts.Samim.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: _textColor,
@@ -147,7 +151,7 @@ class BastehaScreen extends StatelessWidget {
                 children: [
                   Text(
                     'مبلغ: $price',
-                    style: TextStyle(
+                    style: PersianFonts.Samim.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: _textColor,
@@ -155,7 +159,7 @@ class BastehaScreen extends StatelessWidget {
                   ),
                   Text(
                     'مدت: $duration',
-                    style: TextStyle(
+                    style: PersianFonts.Samim.copyWith(
                       fontSize: 12,
                       color: isDarkMode ? Colors.white70 : Colors.black54,
                     ),
@@ -167,7 +171,7 @@ class BastehaScreen extends StatelessWidget {
                 children: [
                   Text(
                     data,
-                    style: TextStyle(
+                    style: PersianFonts.Samim.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: _textColor,
@@ -175,7 +179,7 @@ class BastehaScreen extends StatelessWidget {
                   ),
                   Text(
                     'باقی‌مانده: $remaining',
-                    style: TextStyle(
+                    style: PersianFonts.Samim.copyWith(
                       fontSize: 12,
                       color: isDarkMode ? Colors.white70 : Colors.black54,
                     ),
@@ -190,13 +194,16 @@ class BastehaScreen extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isActive ? Colors.orange : Colors.blue,
+                    backgroundColor: isActive
+                        ? const Color(0xFF33B4E6)
+                        : const Color(0xFF33B4E6),
                     padding: const EdgeInsets.symmetric(vertical: 12),
+                    foregroundColor: Colors.white,
                   ),
                   onPressed: () {},
                   child: Text(
                     isActive ? 'تمدید' : 'خرید',
-                    style: const TextStyle(color: Colors.white),
+                    style: PersianFonts.Samim.copyWith(color: Colors.white),
                   ),
                 ),
               ),
