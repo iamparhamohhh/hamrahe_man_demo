@@ -269,7 +269,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           : Colors.white,
       appBar: AppBar(
         //centerTitle: true,
-        title: const FlutterLogo(size: 28),
+          title: SizedBox(
+            height: 32,
+            child: Image.asset(
+              'assets/arka.png',
+              height: 150,
+              width: 200,
+              fit: BoxFit.fitHeight,
+              // Show a fallback if the asset fails to load so we can debug quickly
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image),
+            ),
+          ),
         actions: [
           IconButton(
             icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
