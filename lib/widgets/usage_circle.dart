@@ -47,50 +47,58 @@ class UsageCircle extends StatelessWidget {
     }
 
     final percent = (used / total).clamp(0.0, 1.0);
-    return Column(
-      children: [
-        CircularPercentIndicator(
-          radius: 44,
-          lineWidth: 6,
-          percent: percent,
-          center: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '${used.toStringAsFixed(1)}',
-                style: TextStyle(
-                  color: isDarkMode ? Colors.white : Colors.black87,
-                  fontWeight: FontWeight.bold,
-                ),
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0, end: percent),
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeOutCubic,
+      builder: (context, animatedPercent, child) {
+        final animatedUsed = animatedPercent * total;
+        return Column(
+          children: [
+            CircularPercentIndicator(
+              radius: 44,
+              lineWidth: 6,
+              percent: animatedPercent,
+              center: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    animatedUsed.toStringAsFixed(1),
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white : Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'گیگ باقی‌مانده',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: isDarkMode ? Colors.white70 : Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    'از ${total.toStringAsFixed(1)} گیگ',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: isDarkMode ? Colors.white70 : Colors.black54,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                'گیگ باقی‌مانده',
-                style: TextStyle(
-                  fontSize: 8,
-                  color: isDarkMode ? Colors.white70 : Colors.black54,
-                ),
+              progressColor: AppTheme.brandPrimary,
+              backgroundColor: isDarkMode ? Colors.white10 : Colors.black12,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                color: isDarkMode ? Colors.white : Colors.black87,
               ),
-              Text(
-                'از ${total.toStringAsFixed(1)} گیگ',
-                style: TextStyle(
-                  fontSize: 8,
-                  color: isDarkMode ? Colors.white70 : Colors.black54,
-                ),
-              ),
-            ],
-          ),
-          progressColor: AppTheme.brandPrimary,
-          backgroundColor: isDarkMode ? Colors.white10 : Colors.black12,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: isDarkMode ? Colors.white : Colors.black87,
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

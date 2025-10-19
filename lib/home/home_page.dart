@@ -5,7 +5,7 @@ import 'package:hamrahe_man_demo/kifepool.dart';
 import 'package:hamrahe_man_demo/surathesab.dart';
 import 'package:hamrahe_man_demo/widgets/home_service_item.dart';
 import 'package:hamrahe_man_demo/widgets/usage_circle.dart';
-import 'package:hamrahe_man_demo/theme/app_theme.dart';
+// removed unused import
 import 'package:persian_fonts/persian_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,6 +46,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
     _controllers[_selectedIndex].value = 1.0;
+    // sanity check: ensure controllers list matches nav items
+    assert(
+      _controllers.length == _bottomItems.length,
+      'Controllers length must match bottom nav items',
+    );
   }
 
   @override
@@ -57,9 +62,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void _onNavTap(int i) {
+    if (!mounted) return;
     if (i == _selectedIndex) return;
-    _controllers[_selectedIndex].reverse();
-    _controllers[i].forward();
+    if (i < 0 || i >= _controllers.length) return;
+    try {
+      _controllers[_selectedIndex].reverse();
+    } catch (e) {
+      // ignore controller errors and continue
+      debugPrint('Error reversing previous controller: $e');
+    }
+    try {
+      _controllers[i].forward();
+    } catch (e) {
+      debugPrint('Error forwarding controller $i: $e');
+    }
+    if (!mounted) return;
     setState(() => _selectedIndex = i);
   }
 
@@ -94,34 +111,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: UsageCircle(
-                    label: 'مکالمه',
-                    active: false,
-                    isDarkMode: widget.isDarkMode,
+            child: RepaintBoundary(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: UsageCircle(
+                      label: 'مکالمه',
+                      active: false,
+                      isDarkMode: widget.isDarkMode,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: UsageCircle(
-                    label: 'اینترنت',
-                    active: true,
-                    used: 22.1,
-                    total: 40.04,
-                    isDarkMode: widget.isDarkMode,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: UsageCircle(
+                      label: 'اینترنت',
+                      active: true,
+                      used: 22.1,
+                      total: 40.04,
+                      isDarkMode: widget.isDarkMode,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: UsageCircle(
-                    label: 'پیامک',
-                    active: false,
-                    isDarkMode: widget.isDarkMode,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: UsageCircle(
+                      label: 'پیامک',
+                      active: false,
+                      isDarkMode: widget.isDarkMode,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 32),
@@ -219,38 +238,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 const SizedBox(height: 12),
-                SizedBox(
-                  height: 80,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      HomeServiceItem(
-                        label: 'اربعین',
-                        icon: Icons.flag,
-                        highlight: true,
-                        isDarkMode: widget.isDarkMode,
-                      ),
-                      HomeServiceItem(
-                        label: 'تشویقی',
-                        icon: Icons.thumb_up,
-                        isDarkMode: widget.isDarkMode,
-                      ),
-                      HomeServiceItem(
-                        label: 'بسته ساعتی',
-                        icon: Icons.access_time,
-                        isDarkMode: widget.isDarkMode,
-                      ),
-                      HomeServiceItem(
-                        label: 'اینترنت',
-                        icon: Icons.wifi,
-                        isDarkMode: widget.isDarkMode,
-                      ),
-                      HomeServiceItem(
-                        label: 'خدمات شارژ',
-                        icon: Icons.bolt,
-                        isDarkMode: widget.isDarkMode,
-                      ),
-                    ],
+                RepaintBoundary(
+                  child: SizedBox(
+                    height: 80,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        HomeServiceItem(
+                          label: 'اربعین',
+                          icon: Icons.flag,
+                          highlight: true,
+                          isDarkMode: widget.isDarkMode,
+                        ),
+                        HomeServiceItem(
+                          label: 'تشویقی',
+                          icon: Icons.thumb_up,
+                          isDarkMode: widget.isDarkMode,
+                        ),
+                        HomeServiceItem(
+                          label: 'بسته ساعتی',
+                          icon: Icons.access_time,
+                          isDarkMode: widget.isDarkMode,
+                        ),
+                        HomeServiceItem(
+                          label: 'اینترنت',
+                          icon: Icons.wifi,
+                          isDarkMode: widget.isDarkMode,
+                        ),
+                        HomeServiceItem(
+                          label: 'خدمات شارژ',
+                          icon: Icons.bolt,
+                          isDarkMode: widget.isDarkMode,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -269,18 +290,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           : Colors.white,
       appBar: AppBar(
         //centerTitle: true,
-          title: SizedBox(
-            height: 32,
-            child: Image.asset(
-              'assets/arka.png',
-              height: 150,
-              width: 200,
-              fit: BoxFit.fitHeight,
-              // Show a fallback if the asset fails to load so we can debug quickly
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.broken_image),
-            ),
+        title: SizedBox(
+          height: 32,
+          child: Image.asset(
+            'assets/arka.png',
+            height: 150,
+            width: 200,
+            fit: BoxFit.fitHeight,
+            // Show a fallback if the asset fails to load so we can debug quickly
+            errorBuilder: (context, error, stackTrace) =>
+                const Icon(Icons.broken_image),
           ),
+        ),
         actions: [
           IconButton(
             icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
@@ -288,13 +309,39 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
         ],
       ),
-      body: _getCurrentScreen(),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 420),
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeInCubic,
+        transitionBuilder: (child, animation) {
+          final offset = Tween<Offset>(
+            begin: const Offset(0, 0.03),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut));
+          return SlideTransition(
+            position: offset,
+            child: FadeTransition(opacity: animation, child: child),
+          );
+        },
+        child: KeyedSubtree(
+          key: ValueKey<int>(_selectedIndex),
+          child: _getCurrentScreen(),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavTap,
         items: List.generate(_bottomItems.length, (i) {
+          final icon = AnimatedBuilder(
+            animation: _controllers[i],
+            builder: (context, child) {
+              final scale = 0.9 + (_controllers[i].value * 0.22);
+              return Transform.scale(scale: scale, child: child);
+            },
+            child: Icon(_bottomItems[i].icon),
+          );
           return BottomNavigationBarItem(
-            icon: Icon(_bottomItems[i].icon),
+            icon: icon,
             label: _bottomItems[i].label,
           );
         }),

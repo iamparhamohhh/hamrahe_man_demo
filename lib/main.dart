@@ -16,6 +16,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isDarkMode = false;
 
+  @override
+  void initState() {
+    super.initState();
+    // Pre-cache important assets to avoid jank on first display
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      precacheImage(const AssetImage('assets/arka.png'), context);
+    });
+  }
+
   void _toggleTheme() {
     setState(() {
       _isDarkMode = !_isDarkMode;
